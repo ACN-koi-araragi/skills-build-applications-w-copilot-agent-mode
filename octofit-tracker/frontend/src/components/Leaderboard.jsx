@@ -4,8 +4,9 @@ const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
 const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
+const apiUrl = `${apiBaseUrl}/api/leaderboard/`;
 
-const buildApiUrl = (endpoint) => `${apiBaseUrl}/api/${endpoint}/`;
+const buildApiUrl = () => apiUrl;
 
 const normalizeCollection = (payload) => {
   if (Array.isArray(payload)) return payload;
@@ -31,7 +32,7 @@ function Leaderboard() {
 
     const loadLeaderboard = async () => {
       try {
-        const response = await fetch(buildApiUrl('leaderboard'), { signal: controller.signal });
+        const response = await fetch(buildApiUrl(), { signal: controller.signal });
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
