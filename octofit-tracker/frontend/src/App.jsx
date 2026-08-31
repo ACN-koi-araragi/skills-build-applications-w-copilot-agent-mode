@@ -1,122 +1,102 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { NavLink, Route, Routes } from 'react-router-dom';
+import Activities from './components/Activities.jsx';
+import Leaderboard from './components/Leaderboard.jsx';
+import Teams from './components/Teams.jsx';
+import Users from './components/Users.jsx';
+import Workouts from './components/Workouts.jsx';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+function Overview() {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
+  const apiBaseUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev`
+    : 'http://localhost:8000';
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="row g-4">
+      <div className="col-12">
+        <div className="alert alert-info mb-0">
+          <strong>API base:</strong> {apiBaseUrl}
+          <div className="small mt-1 text-secondary">
+            VITE_CODESPACE_NAME must be defined in .env.local for GitHub Codespaces.
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <div className="col-md-6 col-xl-3">
+        <div className="card shadow-sm border-0 h-100">
+          <div className="card-body">
+            <h2 className="h5 text-muted">Users</h2>
+            <p className="display-6 mb-0">Track each athlete and coach</p>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <div className="col-md-6 col-xl-3">
+        <div className="card shadow-sm border-0 h-100">
+          <div className="card-body">
+            <h2 className="h5 text-muted">Teams</h2>
+            <p className="display-6 mb-0">Build group accountability</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-md-6 col-xl-3">
+        <div className="card shadow-sm border-0 h-100">
+          <div className="card-body">
+            <h2 className="h5 text-muted">Activities</h2>
+            <p className="display-6 mb-0">Log workouts and milestones</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-md-6 col-xl-3">
+        <div className="card shadow-sm border-0 h-100">
+          <div className="card-body">
+            <h2 className="h5 text-muted">Leaderboard</h2>
+            <p className="display-6 mb-0">Celebrate healthy competition</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <div className="container py-4">
+      <header className="mb-4">
+        <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+          <div>
+            <p className="text-uppercase text-primary fw-semibold mb-1">Octofit Tracker</p>
+            <h1 className="h2 mb-0">Fitness dashboard</h1>
+          </div>
+        </div>
+
+        <nav className="navbar navbar-expand-lg bg-body-tertiary rounded mt-3 px-3">
+          <div className="navbar-nav flex-row flex-wrap gap-2">
+            <NavLink className="nav-link" to="/">Overview</NavLink>
+            <NavLink className="nav-link" to="/users">Users</NavLink>
+            <NavLink className="nav-link" to="/teams">Teams</NavLink>
+            <NavLink className="nav-link" to="/activities">Activities</NavLink>
+            <NavLink className="nav-link" to="/leaderboard">Leaderboard</NavLink>
+            <NavLink className="nav-link" to="/workouts">Workouts</NavLink>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Overview />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/workouts" element={<Workouts />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
+export default App;
