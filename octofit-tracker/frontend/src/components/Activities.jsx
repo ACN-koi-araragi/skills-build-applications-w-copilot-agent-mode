@@ -5,7 +5,7 @@ const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
 
-const buildApiUrl = (endpoint) => `${apiBaseUrl}/api/${endpoint}/`;
+const buildApiUrl = () => `${apiBaseUrl}/api/activities/`;
 
 const normalizeCollection = (payload) => {
   if (Array.isArray(payload)) return payload;
@@ -31,7 +31,7 @@ function Activities() {
 
     const loadActivities = async () => {
       try {
-        const response = await fetch(buildApiUrl('activities'), { signal: controller.signal });
+        const response = await fetch(buildApiUrl(), { signal: controller.signal });
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
